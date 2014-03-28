@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/shootLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearBtn">
+        android:layout_alignParentRight="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnSave"
+            android:id="@+id/btnSave"
+            android:onClick="save"
+            android:focusable="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnShoot"
+            android:id="@+id/btnShoot"
+            android:onClick="openCamera" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/linearBtn"
+        android:id="@+id/linearText">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editAddr"
+            android:inputType="text" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editNum"
+            android:digits="0123456789абвгдежзийклмнопрстуфхцчшщэюя"
+            android:inputType="text" />
+
+        <Spinner
+            android:id="@+id/TYPE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/violations_array"
+            android:prompt="@string/type_prompt"
+            android:spinnerMode="dialog" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/tablePhoto"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/linearText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="false"
+        android:numColumns="3"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true" />
+
+</RelativeLayout>

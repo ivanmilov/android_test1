@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="0"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="119dp"
+            android:layout_height="wrap_content"
+            android:text="@string/button_camera_open"
+            android:onClick="openCamera"
+            android:layout_gravity="center_horizontal|right|top" />
+
+        <EditText android:id="@+id/edit_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_message"
+            android:layout_weight="1"
+            android:layout_gravity="left|top" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_send"
+            android:onClick="sendMessage"
+            android:layout_gravity="center_horizontal|top" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="136dp"
+            android:text="shoot"
+            android:id="@+id/btnShootActivity"
+            android:layout_gravity="right|top"
+            android:onClick="openShootActivity" />
+
+    </FrameLayout>
+
+</LinearLayout>

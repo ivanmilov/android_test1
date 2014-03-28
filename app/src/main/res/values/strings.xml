@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Application 3</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="button_camera_open">Camera</string>
+    <string name="title_activity_display_message">My Message</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="btnSave">Save</string>
+    <string name="btnShoot">shoot</string>
+    <string name="title_activity_shoot_test">shootTest</string>
+
+    <string name="type_prompt">тип нарушения</string>
+    <string-array name="violations_array">
+        <item>Вторым рядом</item>
+        <item>остановка запрещена</item>
+        <item>Тротуар</item>
+        <item>Пешеходный переход</item>
+    </string-array>
+</resources>
