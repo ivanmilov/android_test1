@@ -169,7 +169,7 @@ public class shootTest extends ActionBarActivity {
             for(ImageView iv : v)
             {
                 // need to save bitmap after getting it!!!!!!!!!!!
-                // and save address to adapter
+                // and save address into adapter
                 //iv.
             }
 
