@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/inputCarId"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/_1st"
+        android:digits="абвгдежзийклмнопрстуфхцчшщэюя"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:hint="а"
+        android:capitalize="characters"
+        android:maxLength="1"
+        android:clickable="false"
+        android:nextFocusRight="@+id/_2nd"/>
+    <EditText
+        android:id="@id/_2nd"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:maxLength="3"
+        android:hint="000"
+        android:nextFocusRight="@+id/_3d"
+        android:inputType="number" />
+    <EditText
+        android:id="@id/_3d"
+        android:digits="абвгдежзийклмнопрстуфхцчшщэюя"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:hint="аа"
+        android:capitalize="characters"
+        android:nextFocusRight="@+id/_4th"
+        android:maxLength="2" />
+    <EditText
+        android:id="@id/_4th"
+        android:inputType="text|number"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:maxLength="3"
+        android:hint="000"/>
+</LinearLayout>

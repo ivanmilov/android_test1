@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editAddr"
+            android:hint="@string/editAddressHint"
             android:inputType="text" />
 
         <EditText
@@ -52,7 +53,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/editNum"
             android:digits="0123456789абвгдежзийклмнопрстуфхцчшщэюя"
-            android:inputType="text" />
+            android:inputType="text"
+            android:focusable="false"
+            android:hint="@string/editIdHint"
+            android:onClick="onIdClick" />
 
         <Spinner
             android:id="@+id/TYPE"
@@ -77,5 +81,28 @@
         android:gravity="center"
         android:clickable="true"
         android:focusable="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearBtn"
+        android:layout_toRightOf="@+id/linearText"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/TextViolationsCaption"
+            android:id="@+id/textViolations" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnShowViolationsCaption"
+            android:id="@+id/btnShowViolations"
+            android:enabled="false" />
+    </LinearLayout>
 
 </RelativeLayout>
