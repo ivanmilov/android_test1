@@ -5,22 +5,22 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Vector;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,13 +32,18 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.hardware.Camera;
 import android.widget.Toast;
+import android.app.FragmentManager;
 
 public class MainActivity extends ActionBarActivity {
-
+    private static final String TAG = "MyActivity";
     public final static String EXTRA_MESSAGE = "com.example.app.MESSAGE";
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -48,28 +53,29 @@ public class MainActivity extends ActionBarActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    FragmentAdapter fragmentAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        GridView gv = (GridView)findViewById(R.id.gridView);
+        fragmentAdapter = new FragmentAdapter(this);
 
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        gv.setAdapter(fragmentAdapter);
 
-        // Set up the ViewPager with the sections adapter.
-        //mViewPager = (ViewPager) findViewById(R.id.pager);
-        //mViewPager.setAdapter(mSectionsPagerAdapter);
-
+        // получаем экземпляр FragmentTransaction
+        fragmentManager = getFragmentManager();
     }
 
 
@@ -108,80 +114,6 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
-            }
-            return null;
-        }
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
 
     public void sendMessage(View view)
     {
@@ -322,5 +254,56 @@ public class MainActivity extends ActionBarActivity {
         SurfaceHolder surfaceHolder;
 
         surfaceHolder = preview.getHolder();*/
+    }
+
+    Vector<ViolationFragment> vfs;
+    static int count = 0;
+    int added = -1;
+    public void addFragment(View v)
+    {
+        try {
+
+            fragmentAdapter.add("aaaaa" + count++);
+
+
+          /* // if(added < 0)
+            {
+                vfs = new Vector<ViolationFragment>();
+                for (int i = 0; i < 5; ++i)
+                    vfs.add(new ViolationFragment());
+
+               // fragmentTransaction = fragmentManager.beginTransaction();
+                for (ViolationFragment vf : vfs)
+                {
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.container, vf);
+                    Bundle b = new Bundle();
+                    b.putString("key", "aaa" + count++);
+                    vf.setArguments(b);
+                    fragmentTransaction.commit();
+                }
+
+                //fragmentTransaction.commit();
+                added++;
+            }
+            /*else
+                for(ViolationFragment vf : vfs)
+                {
+                    vf.setText("text "+ added++);
+                    vf.notifyAll();
+                }
+*/
+
+            /*String s = "aaa" + count++;
+            // добавляем фрагмент
+            ViolationFragment myFragment = new ViolationFragment();
+            fragmentTransaction.add(R.id.container, myFragment);
+            fragmentTransaction.commit();
+            ((TextView) findViewById(R.id.violationDate)).setText(s);*/
+        }
+        catch (Exception e){
+            e.fillInStackTrace();
+            Log.d(TAG, "addFragment " + e.getMessage());
+        }
     }
 }

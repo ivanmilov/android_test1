@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -57,7 +58,16 @@ public class shootTest extends ActionBarActivity {
         adapter = new ImageAdapter(this);
         gridView.setAdapter(adapter);
 
-        if (savedInstanceState == null) {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+                {
+                    Toast.makeText(shootTest.this, "" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        if (savedInstanceState == null)
+        {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.shootLayout, new PlaceholderFragment())
                     .commit();

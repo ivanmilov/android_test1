@@ -9,54 +9,59 @@ import android.widget.ImageView;
 
 import java.util.Vector;
 
-public class ImageAdapter extends BaseAdapter
+/**
+ * Created by Administrator on 4/1/14.
+ */
+public class FragmentAdapter extends BaseAdapter
 {
-    private Vector<Pair<ImageView, String>> views;
+    //private Vector<Pair<ImageView, String>> views;
+    private Vector<String> views;
 
-    public ImageAdapter(Context c)
+    public FragmentAdapter(Context c)
     {
-        views = new Vector<Pair<ImageView, String>>();
+        views = new Vector<String>();
     }
 
+    @Override
     public int getCount()
     {
         return views.size();
     }
 
+    @Override
     public Object getItem(int position)
     {
         if(position < views.size())
-            return views.elementAt(position).first;
+            return ViolationFragment.newInstance(views.elementAt(position));
+
         return null;
     }
 
+    @Override
     public long getItemId(int position) {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         if(position < views.size())
-        {
-            convertView = views.elementAt(position).first;
-        }
-        return convertView;
+            return ViolationFragment.newInstance(views.elementAt(position)).getView();
+        return null;
     }
 
-    public void add(ImageView view, String name)
+    public void add(String name)
     {
-        views.add(Pair.create(view, name));
+        views.add(name);
 
         notifyDataSetChanged();
     }
 
-    public Vector<Pair<ImageView, String>> getAll()
+    public Vector<String> getAll()
     {
         return views;
     }
 
-    public Vector<String> getNames()
+    /*public Vector<String> getNames()
     {
         Vector<String> v = new Vector<String>();
         for(Pair<ImageView, String> p : views)
@@ -64,7 +69,7 @@ public class ImageAdapter extends BaseAdapter
             v.add(p.second);
         }
         return v;
-    }
+    }*/
 
     public void clear()
     {

@@ -18,15 +18,17 @@
     <string name="btnShowViolationsCaption">Посмотреть</string>
     <string name="title_activity_shoot_test">shootTest</string>
     <string name="TextViolationsCaption">Нарушений: </string>
-
     <string name="editAddressHint">Адрес</string>
     <string name="editIdHint">а000аа000</string>
-
     <string name="type_prompt">тип нарушения</string>
+
     <string-array name="violations_array">
         <item>Тротуар</item>
         <item>Вторым рядом</item>
         <item>остановка запрещена</item>
         <item>Пешеходный переход</item>
     </string-array>
+
+    <string name="title_activity_list_of_violations">нарушения</string>
+
 </resources>
