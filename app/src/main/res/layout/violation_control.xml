@@ -18,6 +18,13 @@
         android:text="sdgdfgf"
         android:id="@+id/violationAddr" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="nevsky"
+        android:id="@+id/violationType" />
+
     <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

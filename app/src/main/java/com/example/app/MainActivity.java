@@ -260,10 +260,14 @@ public class MainActivity extends ActionBarActivity {
     {
         try {
 
-            LinearLayout sv = (LinearLayout)findViewById(R.id.linearLayout);
+            ViolationManager vm = new ViolationManager("х000хх00", this, (ViewGroup)findViewById(R.id.linearLayout));
+
+
+
+           /* LinearLayout ll = (LinearLayout)findViewById(R.id.linearLayout);
             ViolationControl vc = new ViolationControl(this);
-            vc.setDate("date " + count++);
-            sv.addView(vc);
+
+            ll.addView(vc);*/
 
 
           /* // if(added < 0)

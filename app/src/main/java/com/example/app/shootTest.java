@@ -46,12 +46,21 @@ public class shootTest extends ActionBarActivity {
 
     ImageAdapter adapter;
     private static final String TAG = "MyActivity";
+    private TextView tvAddr;
+    private TextView tvId;
+    private TextView tvCount;
+    private Button btShowViolation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoot_test);
 
+        tvAddr = (TextView)findViewById(R.id.editAddr);
+        tvId = (TextView)findViewById(R.id.editNum);
+        tvCount = (TextView)findViewById(R.id.textViolations);
+        btShowViolation = (Button)findViewById(R.id.btnShowViolations);
 
         GridView gridView = (GridView) findViewById(R.id.tablePhoto);
 
@@ -161,80 +170,6 @@ public class shootTest extends ActionBarActivity {
         }
     }
 
-    /** Create a File for saving an image or video */
-    private static File getOutputMediaFile(String id, String name)
-    {
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyCameraApp");
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
-                Log.d(TAG, "failed to create directory " + mediaStorageDir.getPath());
-                return null;
-            }
-        }
-
-        //create id folder
-        File idDir = new File(mediaStorageDir.getPath() + File.separator + id);
-        if (! idDir.exists()){
-            if (! idDir.mkdirs()){
-                Log.d(TAG, "failed to create directory " + idDir.getPath());
-                return null;
-            }
-        }
-
-        // Create a media file name
-        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile = new File(idDir.getPath() + File.separator + "TEST_IMG_" + name + ".jpg");
-
-        return mediaFile;
-    }
-
-    private static String getOutputPathForId(String id)
-    {
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyCameraApp");
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
-                Log.d(TAG, "failed to create directory " + mediaStorageDir.getPath());
-                return null;
-            }
-        }
-
-        return mediaStorageDir.getPath() + File.separator + id;
-    }
-
-    private static File getOutputReportFile(String id)
-    {
-        //create id folder
-        File idDir = new File(getOutputPathForId(id));
-        if (! idDir.exists()){
-            if (! idDir.mkdirs()){
-                Log.d(TAG, "failed to create directory " + idDir.getPath());
-                return null;
-            }
-        }
-
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile = new File(idDir.getPath() + File.separator + "TEST_REPORT_" + timeStamp + ".txt");
-
-        return mediaFile;
-    }
-
     public void onIdClick(View view)
     {
         try {
@@ -246,6 +181,16 @@ public class shootTest extends ActionBarActivity {
             final EditText e2 = (EditText) v.findViewById(R.id._2nd);
             final EditText e3 = (EditText) v.findViewById(R.id._3d);
             final EditText e4 = (EditText) v.findViewById(R.id._4th);
+
+            String s = tvId.getText().toString();
+            if(!s.isEmpty())
+            {
+                e1.setText(s.substring(0,1));
+                e2.setText(s.substring(1,4));
+                e3.setText(s.substring(4,6));
+                e4.setText(s.substring(6));
+            }
+
             e1.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -363,7 +308,7 @@ public class shootTest extends ActionBarActivity {
             for(Pair<ImageView, String> iv : v)
             {
                 FileOutputStream out;
-                out = new FileOutputStream(getOutputMediaFile(id, iv.second));
+                out = new FileOutputStream(Utils.getOutputMediaFile(id, iv.second));
                 Bitmap bmp = ((BitmapDrawable)iv.first.getDrawable()).getBitmap();
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
                 out.close();
@@ -371,17 +316,19 @@ public class shootTest extends ActionBarActivity {
 
             // save report
             JSONObject j = new JSONObject();
-            j.put("id", id);
-            j.put("date", new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
-            j.put("type", type);
+
+            j.put(getString(R.string.report_id), id);
+            j.put(getString(R.string.report_date), new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
+            j.put(getString(R.string.report_type), type);
+            j.put(getString(R.string.report_address), addr);
 
             JSONArray imgs = new JSONArray();
             for(String s : vImgs)
                 imgs.put(s);
 
-            j.put("images", imgs);
+            j.put(getString(R.string.report_img), imgs);
 
-            FileWriter file = new FileWriter(getOutputReportFile(id));
+            FileWriter file = new FileWriter(Utils.getOutputReportFile(id));
             file.write(j.toString());
             file.flush();
             file.close();
@@ -397,8 +344,9 @@ public class shootTest extends ActionBarActivity {
     private void clear()
     {
         adapter.clear();
-        ((EditText)findViewById(R.id.editAddr)).setText("");
-        ((EditText)findViewById(R.id.editNum)).setText("");
+        tvAddr.setText("");
+        tvCount.setText(R.string.TextViolationsCaption);
+        btShowViolation.setText(R.string.TextViolationsCaption);
     }
 
     private void refreshViolations(String id)
@@ -407,9 +355,9 @@ public class shootTest extends ActionBarActivity {
         findViewById(R.id.btnShowViolations).setEnabled(count > 0);
 
         try {
-            TextView tv = (TextView) findViewById(R.id.textViolations);
-            String text = tv.getText().toString();
-            tv.setText(text + count);
+            tvCount.setText(R.string.TextViolationsCaption);
+            String text = tvCount.getText().toString();
+            tvCount.setText(text + count);
         }
         catch (Exception e)
         {
@@ -420,7 +368,7 @@ public class shootTest extends ActionBarActivity {
 
     private int getViolationsCount(String id)
     {
-        File dir = new File(getOutputPathForId(id));
+        File dir = new File(Utils.getOutputPathForId(id));
         File[] toBeDeleted = dir.listFiles(new FileFilter()
         {
             public boolean accept(File pathname)
@@ -428,6 +376,8 @@ public class shootTest extends ActionBarActivity {
                 return (pathname.getName().endsWith(".txt"));
             }
         });
-        return toBeDeleted.length;
+        if(toBeDeleted != null)
+            return toBeDeleted.length;
+        return 0;
     }
 }

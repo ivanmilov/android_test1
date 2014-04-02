@@ -29,6 +29,12 @@
         <item>Пешеходный переход</item>
     </string-array>
 
+    <string name="report_date">date</string>
+    <string name="report_type">type</string>
+    <string name="report_address">address</string>
+    <string name="report_id">id</string>
+    <string name="report_img">img</string>
+
     <string name="title_activity_list_of_violations">нарушения</string>
 
 </resources>
