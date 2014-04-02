@@ -122,13 +122,14 @@ public class shootTest extends ActionBarActivity {
     {
         GridView gv = (GridView) findViewById(R.id.tablePhoto);
 
-        ImageView iv = new ImageView(this);
+       /* ImageView iv = new ImageView(this);
         iv.setImageBitmap(bmp);
         iv.setLayoutParams(new GridView.LayoutParams(gv.getWidth()/3, gv.getWidth()/3));
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        iv.setPadding(8, 8, 8, 8);
+        iv.setPadding(8, 8, 8, 8);*/
 
-        adapter.add(iv, new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
+        adapter.add(bmp, gv, new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
+        //adapter.add(iv, new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
     }
 
     @Override

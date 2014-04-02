@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -68,11 +69,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GridView gv = (GridView)findViewById(R.id.gridView);
-        fragmentAdapter = new FragmentAdapter(this);
 
-
-        gv.setAdapter(fragmentAdapter);
 
         // получаем экземпляр FragmentTransaction
         fragmentManager = getFragmentManager();
@@ -263,7 +260,10 @@ public class MainActivity extends ActionBarActivity {
     {
         try {
 
-            fragmentAdapter.add("aaaaa" + count++);
+            LinearLayout sv = (LinearLayout)findViewById(R.id.linearLayout);
+            ViolationControl vc = new ViolationControl(this);
+            vc.setDate("date " + count++);
+            sv.addView(vc);
 
 
           /* // if(added < 0)
